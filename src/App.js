@@ -1,26 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
+import TextArea from './components/TextArea'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+
+
+  onTextSubmit = ()=> {
+    console.log('BAAA')
+    }
+  
+  render (){
+    return (
+      <div className="App">
+        <TextArea onFormSubmit={this.onTextSubmit} />
+      </div>
+    );
+  }    
+  
 }
 
 export default App;
