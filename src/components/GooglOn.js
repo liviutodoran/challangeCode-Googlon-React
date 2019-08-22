@@ -117,8 +117,7 @@ class GooglOn extends React.Component {
         if(this.isFooLetter(word)){
           noPrep = noPrep +1;          
         }
-      })
-      
+      })      
       return noPrep;
   }
 
@@ -150,7 +149,6 @@ class GooglOn extends React.Component {
       number =number +(googlonTonumbers[char] * base);
       base =base*20;
     });
-
     return number;
   }
 
@@ -168,16 +166,14 @@ class GooglOn extends React.Component {
   getVocabularylist = words =>
   {
       let wrodToString = words;
-      wrodToString.sort((a,b) =>{
-         
-        return this.GooglonCompare(a,b,0);
+      wrodToString.sort((a,b) =>{        
+        return this.googlonCompare(a,b,0);
       }      
     );
-    return wrodToString.join(" ");
-    
+    return wrodToString.join(" ");    
   }
 
-  GooglonCompare = (a,b,index) =>{    
+  googlonCompare = (a,b,index) =>{    
     let aGooglon = '';
     let bGooglon = '';
     if (index === a.length || index === b.length){
@@ -188,8 +184,9 @@ class GooglOn extends React.Component {
     if (aGooglon !== bGooglon)
       return aGooglon - bGooglon
     else
-      return this.GooglonCompare(a,b,index+1)
+      return this.googlonCompare(a,b,index+1)
   }
+
   showResponseHtml = () =>{
     
     let {prepositions,verbs,verbsInSubjunctiveForm,vocabularyList,prettyNumbers} = this.state;
@@ -224,9 +221,7 @@ class GooglOn extends React.Component {
             </Row>
             {showResponse ? this.showResponseHtml(): ''}        
         </Jumbotron>
-      </Container>  
-      
-      
+      </Container> 
     );
   }
 }
