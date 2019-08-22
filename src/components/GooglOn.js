@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button,Jumbotron, Container, Row,ListGroup, ListGroupItem} from 'reactstrap';
 
 const googlonTolatin = [
   's',
@@ -46,26 +47,35 @@ const googlonTonumbers = {
   'i': 19,
 }
 
-class TextArea extends React.Component {
-  state = { term: '' };
+class GooglOn extends React.Component {
 
-  onInputChange = event => {
-    this.setState({ term: event.target.value });
-    //console.log(this.state.term);
-    
-  };
-
+  constructor(props) {
+    super(props);
+    this.state={
+        prepositions: 0,
+        verbs: 0,
+        verbsInSubjunctiveForm: 0,
+        prettyNumbers: 0,
+        vocabularyList:'',
+        showResponse:false
+    }
+    this.showResponseHtml =this.showResponseHtml.bind(this);
+  }
+ 
   onTextSubmit = event => {
     event.preventDefault();
-    let textToCheck = this.state.term;
+    let textToCheck = this.refs.googlonText.value;
+    textToCheck = textToCheck.replace(/\n/g, ' ');
     let words = this.getWords(textToCheck);
-    console.log(words);
-    console.log('getPrepositions',this.getPrepositions(words));
-    console.log('getVerbs',this.getVerbs(words));
-    console.log('getVerbInSubjunctiveForm',this.getVerbInSubjunctiveForm(words));    
-    console.log('getPrettyNumbers',this.getPrettyNumbers(words));
-    console.log('List' ,this.getVocabularylist(words));
-  
+
+    this.setState({
+      prepositions: this.getPrepositions(words),
+      verbs: this.getVerbs(words),
+      verbsInSubjunctiveForm: this.getVerbInSubjunctiveForm(words),      
+      vocabularyList:this.getVocabularylist(words),
+      prettyNumbers: this.getPrettyNumbers(words),
+      showResponse:true
+    })   
   };
 
   getWords = textToCheck => {
@@ -115,7 +125,7 @@ class TextArea extends React.Component {
   getVerbs = words =>{
     let noVerbs = 0;      
     words.map(word =>{
-      if(word.length >= 6 && this.endBarLetter(word)){
+      if(word.length >= 6 && this.endBarLetter(word)){        
           noVerbs = noVerbs +1;
         }
       })      
@@ -180,24 +190,45 @@ class TextArea extends React.Component {
     else
       return this.GooglonCompare(a,b,index+1)
   }
+  showResponseHtml = () =>{
+    
+    let {prepositions,verbs,verbsInSubjunctiveForm,vocabularyList,prettyNumbers} = this.state;
 
+    return (
+      <ListGroup className='results mt-2'>
+        <ListGroupItem><p>There are <b>{prepositions}</b> prepositions in the text</p></ListGroupItem>
+        <ListGroupItem><p>There are <b>{verbs}</b> verbs in the text </p></ListGroupItem>
+        <ListGroupItem><p>There are <b>{verbsInSubjunctiveForm}</b> subjunctive verbs in the text</p></ListGroupItem>
+        <ListGroupItem><p><b>Vocabulary list</b>: <i>{vocabularyList}</i></p></ListGroupItem>
+        <ListGroupItem><p>There are <b>{prettyNumbers}</b> distinct pretty numbers in the text</p></ListGroupItem>
+      </ListGroup>
+    );
+  }
 
   render() {
+    let{ showResponse} = this.state;
     return (
-      <div className="search-bar ui segment">
-        <form onSubmit={this.onTextSubmit} className="ui form">
-          <div className="field">
-            <label>Video Search</label>
-            <input
-              type="text"
-              value={this.state.term}
-              onChange={this.onInputChange}
-            />
-          </div>
-        </form>
-      </div>
+      <Container className="mt-5">
+        <Jumbotron>
+            <Row className="justify-content-md-center">       
+              <h1>The Googlon Language</h1>
+            </Row>
+            <Row>       
+              <h4>Paste Code Here:</h4>
+            </Row>
+            <Row>
+              <textarea className='googlon-text' ref="googlonText"/>
+            </Row>
+            <Row className="mt-2">
+                <Button color="success" onClick ={this.onTextSubmit}>Submit</Button>
+            </Row>
+            {showResponse ? this.showResponseHtml(): ''}        
+        </Jumbotron>
+      </Container>  
+      
+      
     );
   }
 }
 
-export default TextArea;
+export default GooglOn;

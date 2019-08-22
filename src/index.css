@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.googlon-text{
+  width: 100%;
+  min-height: 350px;  
+}
+.results{
+  text-align: left;  
+}

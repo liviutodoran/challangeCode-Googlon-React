@@ -1,19 +1,13 @@
 import React from 'react';
-import TextArea from './components/TextArea'
+import GooglOn from './components/GooglOn'
 import './App.css';
 
 class App extends React.Component {
-
-
-
-  onTextSubmit = ()=> {
-    console.log('BAAA')
-    }
   
   render (){
     return (
       <div className="App">
-        <TextArea onFormSubmit={this.onTextSubmit} />
+        <GooglOn/>
       </div>
     );
   }    
