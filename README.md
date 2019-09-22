@@ -9,7 +9,7 @@ In the project directory, you can run:
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-##The Googlon language
+## The Googlon language
 Archaeologists found a scroll containing texts in the ancient and mysterious Googlon language.
 After many years of study, linguists have learned some of the fundamental characteristics of this language.
 
